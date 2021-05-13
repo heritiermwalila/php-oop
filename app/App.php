@@ -1,20 +1,34 @@
 <?php
 namespace App;
+use App\interfaces\Singleton;
 
-class App {
+class App implements Singleton {
 
-    const DB_NAME = 'opp_db';
-    const DB_USER = 'root';
-    const DB_PASS = '';
-    const DB_HOST = 'localhost';
+    public $title = 'My opp course';
 
-    private static $connection;
+    private static $_instance = null;
 
-    public static function connection()
+//    private static $connection;
+//
+//    public static function connection()
+//    {
+//        if(is_null(self::$connection)){
+//            self::$connection = new Database(self::DB_NAME, self::DB_HOST, self::DB_USER, self::DB_PASS);
+//        }
+//        return self::$connection;
+//    }
+
+    public static function getInstance()
     {
-        if(is_null(self::$connection)){
-            self::$connection = new Database(self::DB_NAME, self::DB_HOST, self::DB_USER, self::DB_PASS);
+        if(is_null(self::$_instance)){
+            self::$_instance = new App();
         }
-        return self::$connection;
+        return self::$_instance;
+    }
+
+    public function getModel($name)
+    {
+        $class_name = '\\App\\models\\' . ucfirst($name) . 'Model';
+        return new $class_name();
     }
 }

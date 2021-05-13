@@ -4,24 +4,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 use App\Autloader;
+use App\core\Config;
+use App\App;
 require "app/Autloader.php";
 
 
 Autloader::register();
+$app = App::getInstance();
 
-
-if(isset($_GET['p'])){
-    $p = $_GET['p'];
-}else {
-    $p = 'home';
-}
-ob_start();
-if($p === 'posts'){
-    require 'pages/posts.php';
-}else {
-    require 'pages/home.php';
-}
-
-$content = ob_get_clean();
-
-require 'pages/templates/default.php';
+var_dump($app->getModel('article'));
+var_dump($app->getModel('category'));
