@@ -2,13 +2,13 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+use App\Autloader;
 require "app/Autloader.php";
 
 
-\App\Autloader::register();
+Autloader::register();
 
-//$db = new \App\Database();
-//$art = new \App\models\Article();
 
 if(isset($_GET['p'])){
     $p = $_GET['p'];
