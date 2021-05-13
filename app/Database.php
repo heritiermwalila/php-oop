@@ -23,7 +23,7 @@ class Database
     {
         if(is_null($this->pdo)){
             $dsn = 'mysql:dbname=' . $this->db_name . ';host=' . $this->db_host;
-            $pdo = new \PDO($dsn, $this->db_user, $this->db_pass);
+            $pdo = new PDO($dsn, $this->db_user, $this->db_pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo = $pdo;
             return $this->pdo;

@@ -68,7 +68,7 @@ class Model
         return static::$table;
     }
 
-    private static function getPlaceholder(array $condition = null, bool $onlyMarks = false)
+    private static function getPlaceholder(array $condition = null, bool $onlyMarks = null)
     {
         if(is_null($condition)){
             return '';
@@ -94,7 +94,7 @@ class Model
         return $keys;
     }
 
-    private static function getConditionValue(array $condition = null, bool $onlyValues = false)
+    private static function getConditionValue(array $condition = null, bool $onlyValues = null)
     {
         if(is_null($condition)){
             return [];
@@ -112,10 +112,10 @@ class Model
             $values = [];
             foreach($condition as $key => $value) {
                
-                array_push($values, $value);
+                array_push($values, '"' . $value . '"');
             }
 
-            return implode('","', $values);
+            return implode(',', $values);
         }
 
        Helper::dd($values);
