@@ -2,6 +2,8 @@
 
 namespace App\models;
 
+use Core\models\Model;
+
 /**
  * 
  */

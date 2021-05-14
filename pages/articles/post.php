@@ -1,6 +1,9 @@
-<?php use App\models\Article;
+<?php 
+    $app = App::getInstance();
+    $post = $app->getModel('articles');
 
-$post = Article::findOne(array('id'=>$_GET['id']));
+    $post = $post->findOne()
+
 ?>
 
 <h1><?= $post->title; ?></h1>

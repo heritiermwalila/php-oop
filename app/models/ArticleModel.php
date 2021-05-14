@@ -1,8 +1,11 @@
 <?php
 namespace App\models;
 
+use Core\models\Model;
+
 class ArticleModel extends Model {
     protected $table = 'articles';
+    
 }
 
 //namespace App\models;

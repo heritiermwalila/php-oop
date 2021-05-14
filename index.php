@@ -3,14 +3,32 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-use App\Autloader;
-use App\core\Config;
-use App\App;
-require "app/Autloader.php";
+define('ROOT', __DIR__);
 
 
-Autloader::register();
-$app = App::getInstance();
+require ROOT . '/app/App.php';
 
-var_dump($app->getModel('article'));
-var_dump($app->getModel('category'));
+
+App::load();
+
+
+if(isset($_GET['page'])){
+    $page = $_GET['page'];
+}else {
+    $page = "home";
+}
+
+ob_start();
+
+if($page === 'posts'){
+    require ROOT . '/pages/articles/posts.php';
+}else if($page === 'post'){
+    require ROOT . '/pages/articles/post.php';
+}else {
+    require ROOT . '/pages/home.php';
+}
+
+$content = ob_get_clean();
+
+
+require ROOT . '/pages/templates/default.php';

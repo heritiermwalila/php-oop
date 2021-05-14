@@ -1,22 +1,30 @@
 <?php
-namespace App;
-use App\interfaces\Singleton;
 
-class App implements Singleton {
+use Core\connection\Mysql;
+use App\models;
+use Core\Config;
+use Core\query\SQLQueryBuilder;
+
+class App {
 
     public $title = 'My opp course';
 
-    private static $_instance = null;
+    private static $_instance;
+    private $db_instance;
 
-//    private static $connection;
-//
-//    public static function connection()
-//    {
-//        if(is_null(self::$connection)){
-//            self::$connection = new Database(self::DB_NAME, self::DB_HOST, self::DB_USER, self::DB_PASS);
-//        }
-//        return self::$connection;
-//    }
+    /**
+     * Load the application
+     */
+    public static function load()
+    {
+        session_start();
+
+        require ROOT . '/Autloader.php';
+        App\Autloader::register();
+
+        // include ROOT . '/core/Autloader.php';
+        // Core\Autloader::register();
+    }
 
     public static function getInstance()
     {
@@ -28,7 +36,20 @@ class App implements Singleton {
 
     public function getModel($name)
     {
+        
         $class_name = '\\App\\models\\' . ucfirst($name) . 'Model';
-        return new $class_name();
+        return new $class_name($this->getDb(), new SQLQueryBuilder());
+    }
+
+    public function getDb()
+    {
+        $config = Config::getInstance(ROOT . '/config/config.php');
+        
+        if(is_null($this->db_instance)){
+            $this->db_instance = new Mysql($config->get('db_name'), $config->get('db_host'), $config->get('db_user'), $config->get('db_pass'));
+        }
+
+        return $this->db_instance;
+        
     }
 }

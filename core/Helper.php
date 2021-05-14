@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace Core;
 
 class Helper {
 
@@ -8,5 +8,6 @@ class Helper {
         echo '<pre>';
         var_dump($data);
         echo '</pre>';
+        die();
     }
 }

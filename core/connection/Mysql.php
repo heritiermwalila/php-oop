@@ -1,15 +1,16 @@
 <?php
 
 
-namespace App;
+namespace Core\connection;
+
 use PDO;
-use App\Helper;
+use Core\Helper;
 
 /**
  * Class Database
  * @package App
  */
-class Database
+class Mysql extends Database
 {
     private $db_name;
     private $db_host;
