@@ -38,9 +38,8 @@ class App {
 
     public function getModel($name)
     {
-        
         $class_name = '\\App\\Model\\' . ucfirst($name) . 'Model';
-        // Helper::dd(new $class_name($this->getDb(), new SQLQueryBuilder()));
+
         return new $class_name($this->getDb(), new SQLQueryBuilder());
     }
 
