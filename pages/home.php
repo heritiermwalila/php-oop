@@ -4,10 +4,8 @@ use Core\Helper;
 
 $app = App::getInstance();
 
-
 $posts = $app->getModel('post');
 $categories = $app->getModel('category');
-// Helper::dd($categories->findMany());
 
 ?>
 
@@ -20,6 +18,7 @@ $categories = $app->getModel('category');
                     <h2><?= $post->title; ?></h2>
                     <p>category: <?= $post->category_id; ?></p>
                     <p><?= $post->description; ?>...</p>
+                    <a href="<?= $post->url; ?>" class="btn btn-primary">Read more</a>
                 <?php endforeach; ?>
             </div>
         </div>

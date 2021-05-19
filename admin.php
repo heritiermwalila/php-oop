@@ -21,15 +21,15 @@ if(isset($_GET['page'])){
 ob_start();
 
 if($page === 'posts'){
-    require ROOT . '/pages/posts/index.php';
+    require ROOT . '/pages/admin/posts/index.php';
 }else if($page === 'posts.show'){
-    require ROOT . '/pages/posts/show.php';
+    require ROOT . '/pages/admin/posts/show.php';
 }else if($page === 'posts.category') {
-    require ROOT . '/pages/posts/category.php';
+    require ROOT . '/pages/admin/posts/category.php';
 }elseif ($page === 'notfound'){
     require ROOT . '/pages/notfound.php';
 }else {
-    require ROOT . '/pages/home.php';
+    require ROOT . '/pages/admin/index.php';
 }
 
 $content = ob_get_clean();

@@ -27,13 +27,6 @@ class Model {
     }
 
 
-    private function getQuery(): SQLQueryInterface
-    {
-    
-
-        return new SQLQueryBuilder();
-    }
-
     public function updateOne(array $fields, array $condition=null)
     {
         $statement = $this->sql->update($this->table, $fields)->get();
@@ -47,39 +40,22 @@ class Model {
     public function findById($id)
     {
         $statement = $this->sql->prepare($this->table, ['id'])->get();
-    //     $query = $this->db->prepare($statement, [':id' => $id]);
 
-    //    $result = $query->fetch();
-
-        return $this->db->prepare($statement, [':id' => $id], \str_replace('Model', 'Entity', \get_class($this)));
+        return $this->db->prepare($statement, [':id' => $id], \str_replace('Model', 'Entity', \get_class($this)), true);
     }
 
-    public function findMany(array $condition = null, $attributes= null)
+    public function findMany($attributes= null)
     {
         $statement = $this->sql
-                    ->select($this->table)
-                    ->get();
+            ->select($this->table)
+            ->get();
         if(!is_null($attributes)){
             $statement = $this->sql
-                    ->select($this->table, $attributes)
-                    ->get();
+                ->select($this->table, $attributes)
+                ->get();
         }
-       
-        // $statement = "SELECT * FROM " . $this->table;
-
-        // if(!is_null($condition)){
-        //     $statement .= " WHERE " . $this->getPlaceholder($condition);
-        //     $query = $this->db->prepare($statement);
-        //     $query->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-        //     $query->execute($this->getConditionValue($condition));
-
-        //     return $query->fetchAll();
-
-        // }
-
-     
         $query = $this->db->query($statement, \str_replace('Model', 'Entity', \get_class($this)));
-       
+
 
         return $query->fetchAll();
 
@@ -122,7 +98,6 @@ class Model {
 
             $values[':' . $key] = $value;
 
-            // array_push($values, array($key=>$value));
         }
 
         if($onlyValues){
@@ -137,6 +112,11 @@ class Model {
 
 
         return $values;
+    }
+
+    private function getFormatedCondition(array $condition): string
+    {
+        //where(
     }
 
 

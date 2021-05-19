@@ -6,11 +6,28 @@ use Core\Config;
 use Core\QueryBuilder\SQLQueryBuilder;
 use Core\Helper;
 
+/**
+ * The bootstrap class
+ * Class App
+ */
 class App {
 
+    /**
+     * App title
+     * @var string
+     */
     public $title = 'My opp course';
 
+    /**
+     * The App instance
+     * @var _instance
+     */
     private static $_instance;
+
+    /**
+     * Database instance
+     * @var $db_instance
+     */
     private $db_instance;
 
     /**
@@ -27,6 +44,10 @@ class App {
         // Core\Autloader::register();
     }
 
+    /**
+     * App getter
+     * @return _instance|App
+     */
     public static function getInstance()
     {
         if(is_null(self::$_instance)){
@@ -36,6 +57,11 @@ class App {
         return self::$_instance;
     }
 
+    /**
+     * factory method
+     * @param $name
+     * @return mixed
+     */
     public function getModel($name)
     {
         $class_name = '\\App\\Model\\' . ucfirst($name) . 'Model';
@@ -43,6 +69,10 @@ class App {
         return new $class_name($this->getDb(), new SQLQueryBuilder());
     }
 
+    /**
+     * Get DB Instance
+     * @return Mysql
+     */
     private function getDb()
     {
         $config = Config::getInstance(ROOT . '/config/config.php');
@@ -53,5 +83,14 @@ class App {
 
         return $this->db_instance;
         
+    }
+
+    /**
+     * Not found method
+     */
+    public function notFound()
+    {
+        header('Location:index.php?page=notfound');
+        exit();
     }
 }

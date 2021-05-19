@@ -1,8 +1,6 @@
 <?php
 namespace Core\Entity;
 
-use Core\Helper;
-
 class Entity {
 
     public function __get($key){

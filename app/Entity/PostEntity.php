@@ -1,11 +1,24 @@
 <?php
 namespace App\Entity;
 
-class PostEntity {
+use Core\Entity\Entity;
 
-    public function getUrl()
+/**
+ * Class PostEntity
+ * @package App\Entity
+ */
+class PostEntity extends Entity {
+    public $id;
+
+    /**
+     * Get URL, get loaded by a magic method __get from Entity class
+     * @return string
+     */
+    public function getUrl(): string
     {
-        return 'index.php?page=post&id=' . $this->id;
+        return 'index.php?page=posts.show&id=' . $this->id;
     }
+
+
 
 }

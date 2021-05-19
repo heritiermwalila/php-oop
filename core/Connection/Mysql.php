@@ -77,17 +77,17 @@ class Mysql extends Database
      * @param $statement
      * @return false|\PDOStatement
      */
-    public function prepare($statement, $values, $classname)
+    public function prepare($statement, $values, $classname, bool $one=false)
     {
         try {
-            
             $query = $this->getPDO()->prepare($statement);
-            $query->setFetchMode( PDO::FETCH_CLASS, $classname);
-            
+            if(!is_null($classname)){
+                $query->setFetchMode( PDO::FETCH_CLASS, $classname);
+            }else {
+                $query->setFetchMode( PDO::FETCH_OBJ);
+            }
             $query->execute($values);
-            $result = $query->fetch(PDO::FETCH_CLASS);
-
-            return $result;
+            return $one ? $query->fetch(is_null($classname) ? PDO::FETCH_OBJ : PDO::FETCH_CLASS) : $query->fetchAll();
         }catch (\Exception $exception){
             Helper::dd($exception->getMessage());
         }

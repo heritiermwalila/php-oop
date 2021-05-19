@@ -1,8 +1,14 @@
 <?php 
     $app = App::getInstance();
-    $post = $app->getModel('articles');
+    $post = $app->getModel('post');
 
-    $post = $post->findOne()
+    $post = $post->findById($_GET['id']);
+
+
+    if(!$post){
+
+        $app->notFound();
+    }
 
 ?>
 
