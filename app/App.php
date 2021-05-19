@@ -1,9 +1,10 @@
 <?php
 
-use Core\connection\Mysql;
-use App\models;
+use Core\Connection\Mysql;
+use App\Model;
 use Core\Config;
-use Core\query\SQLQueryBuilder;
+use Core\QueryBuilder\SQLQueryBuilder;
+use Core\Helper;
 
 class App {
 
@@ -31,17 +32,19 @@ class App {
         if(is_null(self::$_instance)){
             self::$_instance = new App();
         }
+       
         return self::$_instance;
     }
 
     public function getModel($name)
     {
         
-        $class_name = '\\App\\models\\' . ucfirst($name) . 'Model';
+        $class_name = '\\App\\Model\\' . ucfirst($name) . 'Model';
+        // Helper::dd(new $class_name($this->getDb(), new SQLQueryBuilder()));
         return new $class_name($this->getDb(), new SQLQueryBuilder());
     }
 
-    public function getDb()
+    private function getDb()
     {
         $config = Config::getInstance(ROOT . '/config/config.php');
         

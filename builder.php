@@ -3,6 +3,7 @@
 interface SQLQueryBuilder {
 
     public function select(string $table, array $fields = null): SQLQueryBuilder;
+    public function update(string $table, array $fields): SQLQueryBuilder; //$thist-sql->update(user, ['id'=> 1])
     public function where(string $field, string $value, string $operator = '='): SQLQueryBuilder;
     public function limit(int $start, int $offset): SQLQueryBuilder;
 
@@ -30,6 +31,14 @@ class MySQLQueryBuilder implements SQLQueryBuilder {
         }
         
         $this->query->type = 'select';
+        return $this;
+    }
+
+    public function update(string $table, array $fields): SQLQueryBuilder
+    {
+        $this->reset();
+        $this->query = "UPDATE " . $table . " SET " . implode(" ", $fields);
+        echo $this->query;
         return $this;
     }
 

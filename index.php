@@ -24,6 +24,8 @@ if($page === 'posts'){
     require ROOT . '/pages/articles/posts.php';
 }else if($page === 'post'){
     require ROOT . '/pages/articles/post.php';
+}else if($page === 'category') {
+    require ROOT . '/pages/articles/category.php';
 }else {
     require ROOT . '/pages/home.php';
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\models;
+namespace App\Model;
 
-use Core\models\Model;
+use Core\Model\Model;
 
 /**
  * 

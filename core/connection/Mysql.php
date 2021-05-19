@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\connection;
+namespace Core\Connection;
 
 use PDO;
 use Core\Helper;
@@ -57,11 +57,17 @@ class Mysql extends Database
      * @param $statement
      * @return false|\PDOStatement
      */
-    public function query($statement)
+    public function query($statement, $classname=null)
     {
         try {
-
-            return $this->getPDO()->query($statement);
+           
+            $q = $this->getPDO()->query($statement);
+            if(!\is_null($classname)){
+                $q->setFetchMode(PDO::FETCH_CLASS, $classname);
+            }else {
+                $q->setFetchMode(PDO::FETCH_OBJ);
+            }
+            return $q;
         }catch (\Exception $e){
             Helper::dd($e->getMessage());
         }
@@ -71,11 +77,17 @@ class Mysql extends Database
      * @param $statement
      * @return false|\PDOStatement
      */
-    public function prepare($statement)
+    public function prepare($statement, $values, $classname)
     {
         try {
+            
+            $query = $this->getPDO()->prepare($statement);
+            $query->setFetchMode( PDO::FETCH_CLASS, $classname);
+            
+            $query->execute($values);
+            $result = $query->fetch(PDO::FETCH_CLASS);
 
-            return $this->getPDO()->prepare($statement);
+            return $result;
         }catch (\Exception $exception){
             Helper::dd($exception->getMessage());
         }
