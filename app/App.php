@@ -65,7 +65,6 @@ class App {
     public function getModel($name)
     {
         $class_name = '\\App\\Model\\' . ucfirst($name) . 'Model';
-
         return new $class_name($this->getDb(), new SQLQueryBuilder());
     }
 
@@ -73,7 +72,7 @@ class App {
      * Get DB Instance
      * @return Mysql
      */
-    private function getDb()
+    public function getDb()
     {
         $config = Config::getInstance(ROOT . '/config/config.php');
         
@@ -85,12 +84,5 @@ class App {
         
     }
 
-    /**
-     * Not found method
-     */
-    public function notFound()
-    {
-        header('Location:index.php?page=notfound');
-        exit();
-    }
+   
 }

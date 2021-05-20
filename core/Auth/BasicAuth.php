@@ -35,6 +35,6 @@ class BasicAuth
 
     public function logged()
     {
-        return $_SESSION['auth'];
+        return isset($_SESSION['auth']);
     }
 }

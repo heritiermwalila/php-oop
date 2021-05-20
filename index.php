@@ -1,4 +1,11 @@
 <?php
+
+use App\Controller\AppController;
+use App\Controller\AuthController;
+use App\Controller\CategoryController;
+use App\Controller\PostController;
+use Core\Helper;
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -18,21 +25,25 @@ if(isset($_GET['page'])){
     $page = "home";
 }
 
-ob_start();
-
 if($page === 'posts'){
-    require ROOT . '/pages/posts/index.php';
+    $view = new PostController();
+    $view->index();
 }else if($page === 'posts.show'){
-    require ROOT . '/pages/posts/show.php';
-}else if($page === 'posts.category') {
-    require ROOT . '/pages/posts/category.php';
+    $view = new PostController();
+    $view->show($_GET['id']);
+}else if($page === 'posts.categories') {
+    $view = new CategoryController();
+    $view->index();
+}elseif($page === 'posts.category'){
+    $view = new PostController();
+    $view->showByCategory($_GET['id']);
 }elseif ($page === 'notfound'){
-    require ROOT . '/pages/notfound.php';
+    $view = new AppController();
+    $view->notFound();
+}elseif($page === 'login'){
+    $view = new AuthController();
+    $view->login();
 }else {
-    require ROOT . '/pages/home.php';
+    $view = new PostController();
+    $view->index();
 }
-
-$content = ob_get_clean();
-
-
-require ROOT . '/pages/templates/default.php';
