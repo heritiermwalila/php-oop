@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Connection;
+namespace Core\Database;
 
 /**
  * Class Database

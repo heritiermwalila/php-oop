@@ -17,7 +17,7 @@ class PostController extends AppController {
      */
     public function index()
     {
-        $posts = $this->Post->findMany();
+        $posts = $this->Post->findAll();
         $categories = $this->Category->findMany();
 
         return $this->render('posts.index', compact('posts', 'categories'));

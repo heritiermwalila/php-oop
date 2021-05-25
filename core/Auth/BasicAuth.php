@@ -1,7 +1,7 @@
 <?php
 namespace Core\Auth;
 
-use Core\Connection\Database;
+use Core\Database\Database;
 use Core\Helper;
 use Core\QueryBuilder\SQLQueryBuilder;
 

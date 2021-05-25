@@ -1,7 +1,7 @@
 <?php
 namespace Core\Model;
 
-use Core\Connection\Mysql;
+use Core\Database\Mysql;
 use Core\QueryBuilder\SQLQueryBuilder;
 use Core\QueryBuilder\SQLQueryInterface;
 use Core\Helper;
@@ -114,7 +114,7 @@ class Model {
         return $values;
     }
 
-    private function getFormatedCondition(array $condition): string
+    private function getFormatedCondition(array $condition)
     {
         //where(
     }

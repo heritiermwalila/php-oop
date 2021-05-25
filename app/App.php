@@ -1,6 +1,6 @@
 <?php
 
-use Core\Connection\Mysql;
+use Core\Database\Mysql;
 use App\Model;
 use Core\Config;
 use Core\QueryBuilder\SQLQueryBuilder;
